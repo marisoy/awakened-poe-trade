@@ -56,7 +56,8 @@ export const CATEGORY_TO_TRADE_ID = new Map([
   [ItemCategory.HeadViscera, 'viscera.head'],
   [ItemCategory.TorsoViscera, 'viscera.body'],
   [ItemCategory.LowerLimbViscera, 'viscera.leg'],
-  [ItemCategory.UpperLimbViscera, 'viscera.arm']
+  [ItemCategory.UpperLimbViscera, 'viscera.arm'],
+  [ItemCategory.Viscera, 'viscera']
 ])
 
 const TOTAL_MODS_TEXT = {

@@ -163,7 +163,8 @@
     "viscera_arm": "Upper Limb Viscera",
     "viscera_leg": "Lower Limb Viscera",
     "viscera_head": "Head Viscera",
-    "viscera_body": "Torso Viscera"
+    "viscera_body": "Torso Viscera",
+    "viscera": "Viscera"
   },
   "filters": {
     "selected_some": "{0} of {1}, stats",

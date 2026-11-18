@@ -55,7 +55,8 @@ export enum ItemCategory {
   UpperLimbViscera = 'Upper Limb Viscera',
   LowerLimbViscera = 'Lower Limb Viscera',
   HeadViscera = 'Head Viscera',
-  TorsoViscera = 'Torso Viscera'
+  TorsoViscera = 'Torso Viscera',
+  Viscera = 'Viscera'
 }
 
 export const WEAPON_ONE_HANDED_MELEE = new Set([

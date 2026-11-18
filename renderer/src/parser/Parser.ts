@@ -193,7 +193,15 @@ function findInDatabase (item: ParserState) {
   } else if (item.rarity === ItemRarity.Unique && !item.isUnidentified) {
     info = ITEM_BY_TRANSLATED('UNIQUE', item.name)
   } else {
-    info = ITEM_BY_TRANSLATED('ITEM', item.baseType ?? item.name)
+    const name = item.baseType ?? item.name
+    info = ITEM_BY_TRANSLATED('ITEM', name)
+    if (!info?.length && item.rarity == null) {
+      const baseName = name.replace(/^(?:Lesser|Greater) /, '')
+      if (baseName !== name) {
+        const viscera = ITEM_BY_TRANSLATED('ITEM', baseName)
+        if (viscera?.[0].category === ItemCategory.Viscera) info = viscera
+      }
+    }
   }
   if (!info?.length) {
     return err('item.unknown')
@@ -210,7 +218,9 @@ function findInDatabase (item: ParserState) {
   item.info = info[0]
   // same for every variant
   if (!item.category) {
-    if (item.info.craftable) {
+    if (item.info.category) {
+      item.category = item.info.category
+    } else if (item.info.craftable) {
       item.category = item.info.craftable.category
     } else if (item.info.unique) {
       item.category = ITEM_BY_REF('ITEM',
@@ -708,7 +718,7 @@ function parseAccessory (section: string[], item: ParsedItem) {
 }
 
 function parseViscera (section: string[], item: ParsedItem) {
-  if (item.info.refName !== 'Viscera') return 'PARSER_SKIPPED'
+  if (item.info.category !== ItemCategory.Viscera) return 'PARSER_SKIPPED'
   if (section.length === 1) {
     switch (section[0]) {
       case _$.VISCERA_HEAD:
@@ -823,7 +833,7 @@ function parseModifiers (section: string[], item: ParsedItem) {
     item.rarity !== ItemRarity.Magic &&
     item.rarity !== ItemRarity.Rare &&
     item.rarity !== ItemRarity.Unique &&
-    item.info.refName !== 'Viscera'
+    item.info.category !== ItemCategory.Viscera
   ) {
     return 'PARSER_SKIPPED'
   }
@@ -1006,7 +1016,7 @@ function parseCategoryByHelpText (section: string[], item: ParserState) {
     item.category = ItemCategory.Voidstone
     return 'SECTION_PARSED'
   } else if (section[0] === _$.VISCERA_HELP) {
-    item.name = 'Viscera'
+    item.category = ItemCategory.Viscera
     return 'SECTION_PARSED'
   }
 

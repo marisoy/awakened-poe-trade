@@ -65,7 +65,7 @@ import { usePoeninja } from '@/web/background/Prices'
 import { isValuableBasetype, getDetailsId } from './getDetailsId'
 import ItemQuickPrice from '@/web/ui/ItemQuickPrice.vue'
 import VueApexcharts from 'vue3-apexcharts'
-import { ParsedItem } from '@/parser'
+import { ParsedItem, ItemCategory } from '@/parser'
 import { artificialSlowdown } from '../trade/artificial-slowdown'
 import { ItemFilters } from '../filters/interfaces'
 
@@ -124,7 +124,7 @@ export default defineComponent({
         return (
           !item.info.craftable &&
           item.info.refName !== 'Mercenary Warrant' && // need vertical space
-          item.info.refName !== 'Viscera' // no icons
+          item.info.category !== ItemCategory.Viscera // no icons
         )
       }),
       slowdown

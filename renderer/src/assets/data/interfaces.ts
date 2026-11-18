@@ -85,6 +85,7 @@ export interface BaseType {
     mapTier?: 'W' | 'Y' | 'R'
   }
   // extra info
+  category?: ItemCategory
   craftable?: {
     category: ItemCategory
     corrupted?: true

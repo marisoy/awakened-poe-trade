@@ -50,7 +50,7 @@ export function createFilters (
     }
     if (
       item.info.refName !== 'Mercenary Warrant' &&
-      item.info.refName !== 'Viscera'
+      item.info.category !== ItemCategory.Viscera
     ) {
       filters.trade.collapseMerchant = true
     }
@@ -139,7 +139,7 @@ export function createFilters (
     }
     return filters
   }
-  if (item.info.refName === 'Viscera') {
+  if (item.info.category === ItemCategory.Viscera) {
     filters.searchExact = {
       category: item.category
     }
