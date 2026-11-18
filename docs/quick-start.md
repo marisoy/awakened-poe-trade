@@ -40,4 +40,6 @@ The app does not magically check the price of your item. You tick the checkboxes
 
 You may notice that some stats from the item are missing, this is because they have been grouped into "pseudo" stats. For example, the spell damage from 3 mods on this wand have been grouped together into one pseudo spell damage stat with a value of all the mods combined.
 
+Viscera are searched by base type and implicit modifiers. English tier prefixes `Lesser` and `Greater` are removed for base-type lookup only; the item's implicit modifiers and rolls are preserved. Variants such as High1, High2, and High3 are distinguished by their modifiers and rolls, not by separate item names.
+
 The numbers on the side of each filter indicate the min-max range to search for on the trade site. They are automatically filled in with a slight decrease in the actual roll so that you can find items on the trade. You can always adjust them manually if you have a perfectly rolled T1 mod, for example.

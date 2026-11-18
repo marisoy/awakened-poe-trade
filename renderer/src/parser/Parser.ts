@@ -192,7 +192,15 @@ function findInDatabase (item: ParserState) {
   } else if (item.rarity === ItemRarity.Unique && !item.isUnidentified) {
     info = ITEM_BY_TRANSLATED('UNIQUE', item.name)
   } else {
-    info = ITEM_BY_TRANSLATED('ITEM', item.baseType ?? item.name)
+    const name = item.baseType ?? item.name
+    info = ITEM_BY_TRANSLATED('ITEM', name)
+    if (!info?.length && item.rarity == null) {
+      const baseName = name.replace(/^(?:Lesser|Greater) /, '')
+      if (baseName !== name) {
+        const viscera = ITEM_BY_TRANSLATED('ITEM', baseName)
+        if (viscera?.[0].category === ItemCategory.Viscera) info = viscera
+      }
+    }
   }
   if (!info?.length) {
     return err('item.unknown')
@@ -209,7 +217,9 @@ function findInDatabase (item: ParserState) {
   item.info = info[0]
   // same for every variant
   if (!item.category) {
-    if (item.info.craftable) {
+    if (item.info.category) {
+      item.category = item.info.category
+    } else if (item.info.craftable) {
       item.category = item.info.craftable.category
     } else if (item.info.unique) {
       item.category = ITEM_BY_REF('ITEM',
@@ -803,7 +813,8 @@ function parseModifiers (section: string[], item: ParsedItem) {
     item.rarity !== ItemRarity.Normal &&
     item.rarity !== ItemRarity.Magic &&
     item.rarity !== ItemRarity.Rare &&
-    item.rarity !== ItemRarity.Unique
+    item.rarity !== ItemRarity.Unique &&
+    item.category !== ItemCategory.Viscera
   ) {
     return 'PARSER_SKIPPED'
   }

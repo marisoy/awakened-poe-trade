@@ -26,6 +26,10 @@ npm ci
 npm run dev
 ```
 
+# Parser regression check
+
+From `renderer`, run `node test/viscera.mjs` to check rarityless Viscera parsing, `Lesser`/`Greater` base-name lookup, reported modifier samples, and Gemling Torso's High1/High2/High3 variants against the bundled item and stat data.
+
 # How to build
 
 ```shell
